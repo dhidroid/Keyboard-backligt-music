@@ -1,0 +1,47 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "kblight"
+version = "0.1.0"
+description = "Sync a keyboard backlight to live audio"
+readme = "README.md"
+requires-python = ">=3.10"
+license = "MIT"
+license-files = ["LICENSE"]
+dependencies = [
+    "numpy>=1.24",
+    "requests>=2.31",
+    "soundcard>=0.4.3",
+]
+
+[project.optional-dependencies]
+dev = [
+    "black>=24.0",
+    "pre-commit>=3.7",
+    "pytest>=8.0",
+    "ruff>=0.6",
+]
+macos = [
+    "pyobjc-core>=10.0",
+    "pyobjc-framework-Cocoa>=10.0",
+]
+openrgb = ["openrgb-python>=0.3.3"]
+
+[project.scripts]
+kblight = "kblight:main"
+
+[tool.black]
+line-length = 100
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP"]
+
+[tool.pytest.ini_options]
+addopts = "-q"
+testpaths = ["tests"]
