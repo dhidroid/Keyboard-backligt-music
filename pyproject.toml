@@ -13,7 +13,7 @@ license-files = ["LICENSE"]
 dependencies = [
     "numpy>=1.24",
     "requests>=2.31",
-    "soundcard>=0.4.3",
+    "soundcard>=0.4.6",
 ]
 
 [project.optional-dependencies]
