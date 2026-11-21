@@ -58,11 +58,11 @@ jobs:
 
       - name: Run Bandit (AST Security Scanner)
         run: |
-          python -m bandit -r kblight.py -ll
+          bandit -r kblight.py -ll
 
       - name: Run pip-audit (Vulnerability Scanner)
         run: |
-          python -m pip-audit
+          pip-audit
 
   secret-scan:
     name: Secret Scanning
