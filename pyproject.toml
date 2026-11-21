@@ -1,5 +1,5 @@
 [build-system]
-requires = ["setuptools>=68"]
+requires = ["setuptools>=84.2.1"]
 build-backend = "setuptools.build_meta"
 
 [project]
@@ -19,12 +19,12 @@ dependencies = [
 [project.optional-dependencies]
 dev = [
     "black>=24.0",
-    "pre-commit>=3.7",
+    "pre-commit>=4.6.2",
     "pytest>=8.0",
     "ruff>=0.6",
 ]
 macos = [
-    "pyobjc-core>=10.0",
+    "pyobjc-core>=12.2.2",
     "pyobjc-framework-Cocoa>=10.0",
 ]
 openrgb = ["openrgb-python>=0.3.3"]
