@@ -341,6 +341,11 @@ def main():
     ap.add_argument(
         "--hue-speed", type=float, default=0.03, help="colour cycling per second (0 = fixed)"
     )
+    ap.add_argument(
+        "--debug",
+        action="store_true",
+        help="print live audio RMS and brightness for troubleshooting",
+    )
     args = ap.parse_args()
 
     if args.list:
@@ -351,6 +356,8 @@ def main():
     print(f"Backlight driver: {driver.name}   (Ctrl+C to stop)")
     analyzer = Analyzer(bass_weight=args.bass, sensitivity=args.sensitivity)
     hue, last_sent, last_level, last_t = args.hue, 0.0, -1.0, time.time()
+    silent_frames = 0
+    last_debug = 0.0
 
     try:
         with open_audio(args.device) as rec:
@@ -362,7 +369,36 @@ def main():
                     min(1.0, level**args.gamma + analyzer.flash * args.flash),
                 )
 
+                mono = block.mean(axis=1) if block.ndim == 2 else block
+                rms = float(np.sqrt(np.mean(mono**2)))
+                if rms < 1e-4:
+                    silent_frames += 1
+                else:
+                    silent_frames = 0
+
+                if silent_frames == int(3.0 * SAMPLE_RATE / BLOCK):
+                    if args.device:
+                        print(
+                            "\nNo audio is reaching the selected input. "
+                            "Route music through a Multi-Output Device containing BlackHole "
+                            "or choose a different --device.",
+                            file=sys.stderr,
+                        )
+                    else:
+                        print(
+                            "\nNo audio is reaching the default microphone. "
+                            "Check microphone permissions and input level.",
+                            file=sys.stderr,
+                        )
+
                 now = time.time()
+                if args.debug and now - last_debug >= 0.25:
+                    sys.stderr.write(
+                        f"\rRMS {rms:.4f}  level {level:.2f}  brightness {brightness:.2f}"
+                    )
+                    sys.stderr.flush()
+                    last_debug = now
+
                 hue = (hue + args.hue_speed * (now - last_t)) % 1.0
                 last_t = now
 

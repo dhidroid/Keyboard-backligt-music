@@ -55,10 +55,18 @@ macOS does not expose system audio as a normal microphone. Install
 3. Confirm `BlackHole 2ch` appears in `python3 kblight.py --list`.
 4. Run `python3 kblight.py --device BlackHole --flash 1.0`.
 
+If the brightness stays at `0.05` and the app reports no audio, music is not
+being sent to BlackHole. Start it with `--debug` to monitor live RMS and
+brightness:
+
+```console
+python3 kblight.py --device BlackHole --flash 1.0 --debug
+```
+
 The device argument is matched case-insensitively by substring, so `BlackHole`
 selects `BlackHole 2ch`. If it is not listed, install/restart BlackHole before
-running the command. Otherwise the default microphone is used.
-Otherwise the default microphone is used.
+running the command. If no `--device` is provided, kblight uses the default
+microphone. Use `--device BlackHole` explicitly for routed system audio.
 
 ### Drivers
 
