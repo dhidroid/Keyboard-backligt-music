@@ -21,7 +21,7 @@ dev = [
     "black>=26.10.1",
     "pre-commit>=4.6.2",
     "pytest>=9.2.0",
-    "ruff>=0.6",
+    "ruff>=0.17.5",
 ]
 macos = [
     "pyobjc-core>=12.2.2",
