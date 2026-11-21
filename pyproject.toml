@@ -24,7 +24,7 @@ dev = [
     "ruff>=0.6",
 ]
 macos = [
-    "pyobjc-core>=10.0",
+    "pyobjc-core>=12.2.2",
     "pyobjc-framework-Cocoa>=10.0",
 ]
 openrgb = ["openrgb-python>=0.3.3"]
