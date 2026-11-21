@@ -19,7 +19,7 @@ dependencies = [
 [project.optional-dependencies]
 dev = [
     "black>=24.0",
-    "pre-commit>=3.7",
+    "pre-commit>=4.6.2",
     "pytest>=8.0",
     "ruff>=0.6",
 ]
