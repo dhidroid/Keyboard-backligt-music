@@ -27,7 +27,7 @@ macos = [
     "pyobjc-core>=12.2.2",
     "pyobjc-framework-Cocoa>=12.2.2",
 ]
-openrgb = ["openrgb-python>=0.3.3"]
+openrgb = ["openrgb-python>=0.3.8"]
 
 [project.scripts]
 kblight = "kblight:main"
